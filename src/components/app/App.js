@@ -11,18 +11,19 @@ function App() {
     axios.get('https://fakestoreapi.com/products')
     .then(res => {
       let result = res.data
+      //set products to pass down as props
       setProducts(state => ([...products, result]))
-      // console.log("PRODUCTS", res.data)
+      //grab all categories to list out 
       for (let product of res.data) {
-        console.log(product)
-        if (categories.indexOf(products.category == -1)) {
-          setCategories([...categories, product.category]);
-        }
+        let array = categories
+        array.push(product.category)
+        const filteredArray = new Set(array)
+        setCategories(state => ([...filteredArray]));
       }
       })
   }, [])
   console.log("products", products)
-  console.log(categories)
+  console.log("categories", categories)
   return (
     <div className="App">
       <header className="App-header">
